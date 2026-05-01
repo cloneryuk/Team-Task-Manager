@@ -30,6 +30,10 @@ function getDb() {
 function saveDb() {
     const data = db.export();
     const buffer = Buffer.from(data);
+    const dbDir = path.dirname(DB_PATH);
+    if (!fs.existsSync(dbDir)) {
+        fs.mkdirSync(dbDir, { recursive: true });
+    }
     fs.writeFileSync(DB_PATH, buffer);
 }
 setInterval(() => {
